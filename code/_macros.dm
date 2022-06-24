@@ -12,6 +12,8 @@
 
 #define isalien(A) istype(A, /mob/living/carbon/alien)
 
+#define isxenos(A) istype(A, /mob/living/carbon/human/xenos/)
+
 #define isanimal(A) istype(A, /mob/living/simple_animal)
 
 #define isairlock(A) istype(A, /obj/machinery/door/airlock)
