@@ -26,19 +26,22 @@
 		user.setMoveCooldown(user.movement_delay())
 
 /obj/machinery/atmospherics/proc/ventcrawl_to(mob/living/user, obj/machinery/atmospherics/target_move, direction)
+	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	if(target_move)
 		if(is_type_in_list(target_move, ventcrawl_machinery))
 			if(target_move.can_crawl_through())
 				user.remove_ventcrawl()
 				user.forceMove(target_move.loc) //handles entering and so on
 				user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
-			else if(isxenos(user))
+			else if(isxenos(user) && !target_move.in_progress)
 				log_debug("FREE XENOS")
-
-				if(!do_after(user, 60, src)))
+				target_move.in_progress = TRUE
+				if(!do_mob(user, src, time = 60))
+					log_debug("do mob body")
+					target_move.in_progress = FALSE
 					return
+				log_debug("do mob end")
 				// НАДО ШОБ КАК СО ШКАФА
-
 				user.remove_ventcrawl()
 				user.forceMove(target_move.loc) //handles entering and so on
 				user.visible_message("You hear something squeezing through the ducts.", "You BROKEN ventilation system.")

@@ -126,6 +126,7 @@ Class Procs:
 
 	var/current_power_usage = 0 // How much power are we currently using, dont change by hand, change power_usage vars and then use set_power_use
 	var/area/current_power_area // What area are we powering currently
+	var/in_progress = FALSE // Use for do_mob to limit simultaneous actions.
 
 /obj/machinery/Initialize(mapload, d=0, populate_components = TRUE)
 	. = ..()
